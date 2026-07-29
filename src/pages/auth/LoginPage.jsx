@@ -2,128 +2,77 @@ import "./Login.css";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { login as loginApi } from "../../services/authService";
-import useAuth from "../../hooks/useAuth";
+import { useAuth } from "../../context/AuthContext";
 import toast from "react-hot-toast";
 
-export default function LoginPage(){
+export default function LoginPage() {
+  const navigate = useNavigate();
 
-    const navigate=useNavigate();
+  const { login } = useAuth();
 
-    const {login}=useAuth();
+  const {
+    register,
 
-    const{
+    handleSubmit,
 
-        register,
+    formState: { errors, isSubmitting },
+  } = useForm();
 
-        handleSubmit,
+  async function onSubmit(data) {
+    try {
+      const response = await loginApi(data);
 
-        formState:{errors,isSubmitting}
+      login(
+        response.accessToken,
 
-    }=useForm();
+        response.refreshToken,
+      );
 
-    async function onSubmit(data){
+      toast.success("Login Successful");
 
-        try{
-
-            const response=await loginApi(data);
-
-            login(response.accessToken);
-
-            toast.success("Login Successful");
-
-            navigate("/");
-
-    
-
-        }
-        catch{
-
-            toast.error("Invalid Email or Password");
-
-        }
-
+      navigate("/");
+    } catch {
+      toast.error("Invalid Email or Password");
     }
+  }
 
-    return(
+  return (
+    <div className="login-container">
+      <div className="login-card">
+        <h2 className="login-title">Library Management</h2>
 
-        <div className="login-container">
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="form-group">
+            <label>Email</label>
 
-            <div className="login-card">
+            <input
+              type="email"
+              {...register("email", {
+                required: "Email is required",
+              })}
+            />
 
-                <h2 className="login-title">
+            <p className="error">{errors.email?.message}</p>
+          </div>
 
-                    Library Management
+          <div className="form-group">
+            <label>Password</label>
 
-                </h2>
+            <input
+              type="password"
+              {...register("password", {
+                required: "Password is required",
+              })}
+            />
 
-                <form onSubmit={handleSubmit(onSubmit)}>
+            <p className="error">{errors.password?.message}</p>
+          </div>
 
-                    <div className="form-group">
-
-                        <label>Email</label>
-
-                        <input
-
-                        type="email"
-
-                        {...register("email",{
-
-                            required:"Email is required"
-
-                        })}
-
-                        />
-
-                        <p className="error">
-
-                            {errors.email?.message}
-
-                        </p>
-
-                    </div>
-
-                    <div className="form-group">
-
-                        <label>Password</label>
-
-                        <input
-
-                        type="password"
-
-                        {...register("password",{
-
-                            required:"Password is required"
-
-                        })}
-
-                        />
-
-                        <p className="error">
-
-                            {errors.password?.message}
-
-                        </p>
-
-                    </div>
-
-                    <button
-
-                    className="login-btn"
-
-                    disabled={isSubmitting}
-
-                    >
-
-                        Login
-
-                    </button>
-
-                </form>
-
-            </div>
-
-        </div>
-
-    );
-
+          <button className="login-btn" disabled={isSubmitting}>
+            Login
+          </button>
+        </form>
+      </div>
+    </div>
+  );
 }

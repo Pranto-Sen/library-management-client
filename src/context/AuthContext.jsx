@@ -1,58 +1,72 @@
-import { createContext, useEffect, useState } from "react";
-import { storage } from "../utils/storage";
-import { getUserFromToken } from "../utils/jwt";
+import { createContext, useContext, useEffect, useState } from "react";
+import { jwtDecode } from "jwt-decode";
 
-export const AuthContext = createContext();
+const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-    const [user, setUser] = useState(null);
+  const loadUser = () => {
+    const token = localStorage.getItem("token");
 
-    useEffect(() => {
-
-        const token = storage.getToken();
-
-        if (token) {
-
-            const user = getUserFromToken(token);
-
-            setUser(user);
-        }
-
-    }, []);
-
- function login(token){
-
-    storage.setToken(token);
-
-    const currentUser=getUserFromToken(token);
-
-    setUser(currentUser);
-
-}
-
-    function logout() {
-
-        storage.removeToken();
-
-        setUser(null);
+    if (!token) {
+      setUser(null);
+      setLoading(false);
+      return;
     }
 
-    return (
+    try {
+      const decoded = jwtDecode(token);
 
-        <AuthContext.Provider
-            value={{
-                user,
-                login,
-                logout,
-                isAuthenticated: !!user
-            }}
-        >
+      setUser({
+        id: decoded[
+          "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
+        ],
+        email: decoded.email,
+        role:
+          decoded[
+            "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+          ] || "",
+      });
+    } catch {
+      localStorage.removeItem("token");
+      setUser(null);
+    }
 
-            {children}
+    setLoading(false);
+  };
 
-        </AuthContext.Provider>
+  useEffect(() => {
+    loadUser();
+  }, []);
 
-    );
+  const login = (accessToken, refreshToken) => {
+    localStorage.setItem("token", accessToken);
+    localStorage.setItem("refreshToken", refreshToken);
+    loadUser();
+};
 
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("refreshToken");
+    setUser(null);
+};
+
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        loading,
+        login,
+        logout,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+}
+
+export function useAuth() {
+  return useContext(AuthContext);
 }

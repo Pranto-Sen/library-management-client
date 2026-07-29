@@ -1,13 +1,9 @@
 import { Routes, Route } from "react-router-dom";
-
-import PrivateRoute from "./PrivateRoute";
-
+import ProtectedRoute from "./ProtectedRoute";
 import Layout from "../components/layout/Layout";
-
 import LoginPage from "../pages/auth/LoginPage";
 import DashboardPage from "../pages/dashboard/DashboardPage";
-import BooksPage from './../pages/books/BooksPage';
-
+import BooksPage from "./../pages/books/BooksPage";
 
 export default function AppRoutes() {
   return (
@@ -17,20 +13,22 @@ export default function AppRoutes() {
       <Route
         path="/"
         element={
-          <PrivateRoute>
+          <ProtectedRoute roles={["Admin", "Member"]}>
             <Layout>
               <DashboardPage />
             </Layout>
-          </PrivateRoute>
+          </ProtectedRoute>
         }
       />
 
       <Route
         path="/books"
         element={
-          <Layout>
-            <BooksPage />
-          </Layout>
+          <ProtectedRoute roles={["Admin"]}>
+            <Layout>
+              <BooksPage />
+            </Layout>
+          </ProtectedRoute>
         }
       />
     </Routes>

@@ -13,3 +13,23 @@ export async function getDashboardSummary() {
     return response.data;
 
 }
+
+export async function refreshToken() {
+
+    const token = localStorage.getItem("refreshToken");
+
+    const response = await api.post(
+
+        "/auth/refresh",
+
+        {
+
+            refreshToken: token
+
+        }
+
+    );
+
+    return response.data.data;
+
+}
