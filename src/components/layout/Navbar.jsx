@@ -1,13 +1,16 @@
 import "../../styles/Navbar.css";
 
 import useAuth from "../../hooks/useAuth";
+
 import { useNavigate } from "react-router-dom";
+
+import { FaSignOutAlt } from "react-icons/fa";
 
 export default function Navbar(){
 
-    const navigate=useNavigate();
+    const {user,logout}=useAuth();
 
-    const {logout,user}=useAuth();
+    const navigate=useNavigate();
 
     function handleLogout(){
 
@@ -36,6 +39,8 @@ export default function Navbar(){
                 </span>
 
                 <button onClick={handleLogout}>
+
+                    <FaSignOutAlt/>
 
                     Logout
 

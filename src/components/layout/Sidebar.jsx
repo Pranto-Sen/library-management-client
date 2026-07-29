@@ -1,45 +1,72 @@
 import { NavLink } from "react-router-dom";
 import "../../styles/Sidebar.css";
 
+import {
+  FaBook,
+  FaUsers,
+  FaUser,
+  FaBuilding,
+  FaExchangeAlt,
+  FaBookmark,
+  FaChartPie,
+} from "react-icons/fa";
+
+const menus = [
+  {
+    name: "Dashboard",
+    path: "/",
+    icon: <FaChartPie />,
+  },
+  {
+    name: "Books",
+    path: "/books",
+    icon: <FaBook />,
+  },
+  {
+    name: "Members",
+    path: "/members",
+    icon: <FaUsers />,
+  },
+  {
+    name: "Users",
+    path: "/users",
+    icon: <FaUser />,
+  },
+  {
+    name: "Branches",
+    path: "/branches",
+    icon: <FaBuilding />,
+  },
+  {
+    name: "Borrow",
+    path: "/borrow",
+    icon: <FaExchangeAlt />,
+  },
+  {
+    name: "Reservations",
+    path: "/reservations",
+    icon: <FaBookmark />,
+  },
+];
 
 export default function Sidebar() {
+  return (
+    <aside className="sidebar">
+      <h2 className="logo">Library</h2>
 
-    const menus = [
-        { name: "Dashboard", path: "/" },
-        { name: "Books", path: "/books" },
-        { name: "Members", path: "/members" },
-        { name: "Users", path: "/users" },
-        { name: "Branches", path: "/branches" },
-        { name: "Borrow", path: "/borrow" },
-        { name: "Reservations", path: "/reservations" },
-        { name: "Profile", path: "/profile" }
-    ];
+      <nav>
+        {menus.map((menu) => (
+          <NavLink
+            key={menu.path}
+            to={menu.path}
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            {menu.icon}
 
-    return (
-        <aside className="sidebar">
-
-            <h2 className="logo">
-                Library
-            </h2>
-
-            <nav>
-
-                {menus.map(menu => (
-
-                    <NavLink
-                        key={menu.path}
-                        to={menu.path}
-                        className={({ isActive }) =>
-                            isActive ? "active" : ""
-                        }
-                    >
-                        {menu.name}
-                    </NavLink>
-
-                ))}
-
-            </nav>
-
-        </aside>
-    );
+            <span>{menu.name}</span>
+          </NavLink>
+        ))}
+      </nav>
+    </aside>
+  );
 }

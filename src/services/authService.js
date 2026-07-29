@@ -5,3 +5,11 @@ export async function login(data) {
 
     return response.data.data;
 }
+
+export async function getDashboardSummary(){
+
+    const response=await api.get("/Dashboard");
+
+    return response.data;
+
+}
