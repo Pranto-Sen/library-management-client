@@ -11,66 +11,39 @@ import OverdueBookTable from "../../components/dashboard/OverdueBookTable";
 // import "./DashboardPage.css";
 
 export default function DashboardPage() {
+  const [dashboard, setDashboard] = useState(null);
 
-    const [dashboard, setDashboard] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-    const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    loadDashboard();
+  }, []);
 
-    useEffect(() => {
+  async function loadDashboard() {
+    try {
+      const response = await getDashboardSummary();
 
-        loadDashboard();
-
-    }, []);
-
-    async function loadDashboard() {
-
-        try {
-
-            const response = await getDashboardSummary();
-
-            setDashboard(response);
-
-        }
-        catch (error) {
-
-            console.log(error);
-
-        }
-        finally {
-
-            setLoading(false);
-
-        }
-
+      setDashboard(response);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
     }
+  }
 
-    if (loading)
-        return <h2>Loading...</h2>;
+  if (loading) return <h2>Loading...</h2>;
 
-    return (
-
+  return (
     <div className="dashboard">
+      <SummaryCards dashboard={dashboard} />
 
-        <SummaryCards dashboard={dashboard} />
+      <RecentBorrowTable data={dashboard.recentBorrows} />
 
-        <RecentBorrowTable
-            data={dashboard.recentBorrows}
-        />
+      <div className="dashboard-bottom">
+        <RecentMemberTable data={dashboard.recentMembers} />
 
-        <div className="dashboard-bottom">
-
-            <RecentMemberTable
-                data={dashboard.recentMembers}
-            />
-
-            <OverdueBookTable
-                data={dashboard.overdueBooks}
-            />
-
-        </div>
-
+        <OverdueBookTable data={dashboard.overdueBooks} />
+      </div>
     </div>
-
-);
-
+  );
 }

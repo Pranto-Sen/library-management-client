@@ -5,6 +5,7 @@ import { getBooks } from "../../services/bookService";
 import BookToolbar from "../../components/books/BookToolbar";
 
 import BookTable from "../../components/books/BookTable";
+import DeleteBookModal from "../../components/books/DeleteBookModal";
 
 import BookForm from "./BookForm";
 
@@ -12,7 +13,7 @@ import Pagination from "../../components/common/Pagination";
 
 import "./Books.css";
 import { getBranches } from "../../services/branchService";
-import { createBook, updateBook } from "../../services/bookService";
+import { createBook, updateBook, deleteBook } from "../../services/bookService";
 
 export default function BooksPage() {
   //   const [books, setBooks] = useState({
@@ -38,11 +39,14 @@ export default function BooksPage() {
   const [branches, setBranches] = useState([]);
 
   const [loading, setLoading] = useState(true);
+  const [showDelete, setShowDelete] = useState(false);
 
-//   const [search, setSearch] = useState("");
+  const [selectedBook, setSelectedBook] = useState(null);
+  //   const [search, setSearch] = useState("");
 
   useEffect(() => {
     loadBooks();
+    loadBranches();
   }, []);
 
   useEffect(() => {
@@ -87,13 +91,28 @@ export default function BooksPage() {
         await updateBook(
           editingBook.id,
 
-          data,
+          {
+            ...data,
+
+            id: editingBook.id,
+          },
         );
       } else {
         await createBook(data);
       }
 
       setShowForm(false);
+
+      loadBooks();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async function deleteCurrentBook() {
+    try {
+      await deleteBook(selectedBook.id);
+
+      setShowDelete(false);
 
       loadBooks();
     } catch (error) {
@@ -112,12 +131,25 @@ export default function BooksPage() {
           setShowForm(true);
         }}
       />
+      {/* <BookTable
+        books={filteredBooks}
+        onEdit={(book) => {
+          setEditingBook(book);
+
+          setShowForm(true);
+        }}
+      /> */}
       <BookTable
         books={filteredBooks}
         onEdit={(book) => {
           setEditingBook(book);
 
           setShowForm(true);
+        }}
+        onDelete={(book) => {
+          setSelectedBook(book);
+
+          setShowDelete(true);
         }}
       />
       {showForm && (
@@ -126,6 +158,13 @@ export default function BooksPage() {
           branches={branches}
           onSubmit={saveBook}
           onCancel={() => setShowForm(false)}
+        />
+      )}
+      {showDelete && (
+        <DeleteBookModal
+          book={selectedBook}
+          onCancel={() => setShowDelete(false)}
+          onConfirm={deleteCurrentBook}
         />
       )}
 

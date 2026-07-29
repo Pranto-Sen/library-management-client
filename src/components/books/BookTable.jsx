@@ -1,6 +1,12 @@
 import "../../pages/books/Books.css";
 
-export default function BookTable({ books }) {
+export default function BookTable({
+  books,
+
+  onEdit,
+
+  onDelete,
+}) {
   return (
     <div className="table-card">
       <table>
@@ -45,17 +51,24 @@ export default function BookTable({ books }) {
                 <td>{book.branchName}</td>
 
                 <td>
-                  <button
+                  {/* <button className="edit-btn" onClick={() => onEdit(book)}>
+                    Edit
+                  </button>
 
-    onClick={() => onEdit(book)}
+                  <button>Delete</button> */}
 
->
+                  <td>
+                    <button className="edit-btn" onClick={() => onEdit(book)}>
+                      ✏️
+                    </button>
 
-    Edit
-
-</button>
-
-                  <button>Delete</button>
+                    <button
+                      className="delete-btn"
+                      onClick={() => onDelete(book)}
+                    >
+                      🗑️
+                    </button>
+                  </td>
                 </td>
               </tr>
             ))

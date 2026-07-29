@@ -1,65 +1,37 @@
 import "./Dashboard.css";
 
 export default function RecentMemberTable({ data }) {
+  return (
+    <div className="table-card">
+      <h3>Recent Members</h3>
 
-    return (
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
 
-        <div className="table-card">
+            <th>Email</th>
+          </tr>
+        </thead>
 
-            <h3>Recent Members</h3>
+        <tbody>
+          {data.length === 0 ? (
+            <tr>
+              <td colSpan="2" className="no-data">
+                No Data
+              </td>
+            </tr>
+          ) : (
+            data.map((item) => (
+              <tr key={item.memberId}>
+                <td>{item.fullName}</td>
 
-            <table>
-
-                <thead>
-
-                    <tr>
-
-                        <th>Name</th>
-
-                        <th>Email</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    {
-                        data.length === 0 ? (
-
-                            <tr>
-
-                                <td colSpan="2" className="no-data">
-
-                                    No Data
-
-                                </td>
-
-                            </tr>
-
-                        ) : (
-
-                            data.map(item => (
-
-                                <tr key={item.memberId}>
-
-                                    <td>{item.fullName}</td>
-
-                                    <td>{item.email}</td>
-
-                                </tr>
-
-                            ))
-
-                        )
-                    }
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-    );
-
+                <td>{item.email}</td>
+              </tr>
+            ))
+          )}
+        </tbody>
+      </table>
+    </div>
+  );
 }
