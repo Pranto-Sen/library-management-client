@@ -1,10 +1,11 @@
 import { Routes, Route } from "react-router-dom";
 
-import LoginPage from "../pages/auth/LoginPage";
-
-import DashboardPage from "../pages/dashboard/DashboardPage";
-
 import PrivateRoute from "./PrivateRoute";
+
+import Layout from "../components/layout/Layout";
+
+import LoginPage from "../pages/auth/LoginPage";
+import DashboardPage from "../pages/dashboard/DashboardPage";
 
 export default function AppRoutes() {
 
@@ -22,7 +23,11 @@ export default function AppRoutes() {
                 element={
                     <PrivateRoute>
 
-                        <DashboardPage />
+                        <Layout>
+
+                            <DashboardPage />
+
+                        </Layout>
 
                     </PrivateRoute>
                 }

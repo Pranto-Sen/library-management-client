@@ -21,14 +21,15 @@ export function AuthProvider({ children }) {
 
     }, []);
 
-    function login(token) {
+ function login(token){
 
-        storage.setToken(token);
+    storage.setToken(token);
 
-        const user = getUserFromToken(token);
+    const currentUser=getUserFromToken(token);
 
-        setUser(user);
-    }
+    setUser(currentUser);
+
+}
 
     function logout() {
 
