@@ -4,6 +4,7 @@ import Layout from "../components/layout/Layout";
 import LoginPage from "../pages/auth/LoginPage";
 import DashboardPage from "../pages/dashboard/DashboardPage";
 import BooksPage from "./../pages/books/BooksPage";
+import MembersPage from "../pages/members/MembersPage";
 
 export default function AppRoutes() {
   return (
@@ -27,6 +28,16 @@ export default function AppRoutes() {
           <ProtectedRoute roles={["Admin"]}>
             <Layout>
               <BooksPage />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/members"
+        element={
+          <ProtectedRoute roles={["Admin"]}>
+            <Layout>
+              <MembersPage />
             </Layout>
           </ProtectedRoute>
         }
