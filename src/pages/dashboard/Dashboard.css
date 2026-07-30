@@ -1,0 +1,79 @@
+.summary-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin-bottom:30px;
+}
+
+.summary-card{
+    background:#fff;
+    border-radius:14px;
+    padding:22px;
+    display:flex;
+    align-items:center;
+    gap:18px;
+    box-shadow:0 6px 18px rgba(0,0,0,.06);
+    transition:.25s;
+}
+
+.summary-card:hover{
+    transform:translateY(-3px);
+}
+
+.summary-icon{
+    width:60px;
+    height:60px;
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+    font-size:22px;
+}
+
+.dashboard-bottom{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:25px;
+}
+
+.dashboard-table{
+    background:white;
+    border-radius:14px;
+    padding:20px;
+    box-shadow:0 6px 18px rgba(0,0,0,.06);
+}
+
+.dashboard-table h3{
+    margin-bottom:18px;
+}
+
+.status{
+    padding:5px 12px;
+    border-radius:20px;
+    color:white;
+    font-size:13px;
+    font-weight:600;
+}
+
+.status.active{
+    background:#16a34a;
+}
+
+.status.overdue{
+    background:#dc2626;
+}
+
+.status.pending{
+    background:#f59e0b;
+}
+
+@media(max-width:900px){
+
+.dashboard-bottom{
+
+grid-template-columns:1fr;
+
+}
+
+}
