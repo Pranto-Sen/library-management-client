@@ -1,0 +1,46 @@
+@import "../books/Books.css";
+
+.borrow-page{
+    display:flex;
+    flex-direction:column;
+    gap:24px;
+}
+
+.status-badge{
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:600;
+}
+
+.status-badge.active{
+    background:#dcfce7;
+    color:#15803d;
+}
+
+.status-badge.returned{
+    background:#e5e7eb;
+    color:#374151;
+}
+
+.status-badge.overdue{
+    background:#fee2e2;
+    color:#dc2626;
+}
+
+.return-btn{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    border:none;
+    padding:8px 12px;
+    border-radius:8px;
+    cursor:pointer;
+    background:#2563eb;
+    color:white;
+    transition:.25s;
+}
+
+.return-btn:hover{
+    background:#1d4ed8;
+}
