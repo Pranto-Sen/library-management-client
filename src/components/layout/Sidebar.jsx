@@ -31,11 +31,11 @@ export default function Sidebar() {
       path: "/members",
       icon: <FaUsers />,
     },
-    {
-      name: "Users",
-      path: "/users",
-      icon: <FaUser />,
-    },
+    // {
+    //   name: "Users",
+    //   path: "/users",
+    //   icon: <FaUser />,
+    // },
     {
       name: "Branches",
       path: "/branches",

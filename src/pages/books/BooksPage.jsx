@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import toast from "react-hot-toast";
 import { getBooks } from "../../services/bookService";
 
 import BookToolbar from "../../components/books/BookToolbar";
@@ -85,29 +85,60 @@ export default function BooksPage() {
 
     setBranches(result);
   }
+  // async function saveBook(data) {
+  //   try {
+  //     if (editingBook) {
+  //       await updateBook(
+  //         editingBook.id,
+
+  //         {
+  //           ...data,
+
+  //           id: editingBook.id,
+  //         },
+  //       );
+  //     } else {
+  //       await createBook(data);
+  //     }
+
+  //     setShowForm(false);
+
+  //     loadBooks();
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
   async function saveBook(data) {
     try {
-      if (editingBook) {
-        await updateBook(
-          editingBook.id,
+        if (editingBook) {
+            await updateBook(editingBook.id, {
+                ...data,
+                id: editingBook.id,
+            });
 
-          {
-            ...data,
+            toast.success("Book updated successfully.");
+        } else {
+            await createBook(data);
 
-            id: editingBook.id,
-          },
-        );
-      } else {
-        await createBook(data);
-      }
+            toast.success("Book created successfully.");
+        }
 
-      setShowForm(false);
+        setShowForm(false);
 
-      loadBooks();
+        setEditingBook(null);
+
+        loadBooks();
     } catch (error) {
-      console.log(error);
+        const message =
+            error.response?.data?.Message ||
+            error.response?.data?.message ||
+            "Something went wrong.";
+
+        toast.error(message);
+
+        console.error(error);
     }
-  }
+}
   async function deleteCurrentBook() {
     try {
       await deleteBook(selectedBook.id);

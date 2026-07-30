@@ -7,6 +7,7 @@ import BooksPage from "./../pages/books/BooksPage";
 import MembersPage from "../pages/members/MembersPage";
 import BorrowPage from "../pages/borrow/BorrowPage";
 import ReservationsPage from "../pages/reservations/ReservationsPage";
+import BranchesPage from "../pages/branches/BranchesPage";
 
 export default function AppRoutes() {
   return (
@@ -66,6 +67,17 @@ export default function AppRoutes() {
           </ProtectedRoute>
         }
       />
+      <Route
+  path="/branches"
+  element={
+    <ProtectedRoute roles={["Admin"]}>
+      <Layout>
+        <BranchesPage />
+      </Layout>
+    </ProtectedRoute>
+  }
+/>
+
     </Routes>
   );
 }

@@ -1,0 +1,24 @@
+@import "../books/Books.css";
+
+.branches-page{
+    display:flex;
+    flex-direction:column;
+    gap:24px;
+}
+
+.branch-address{
+    max-width:350px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+@media(max-width:768px){
+
+    .branches-page{
+
+        gap:18px;
+
+    }
+
+}
