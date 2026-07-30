@@ -1,0 +1,48 @@
+@import "../books/Books.css";
+
+.reservation-page{
+    display:flex;
+    flex-direction:column;
+    gap:24px;
+}
+
+.reservation-status{
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:600;
+}
+
+.reservation-status.pending{
+    background:#fef3c7;
+    color:#92400e;
+}
+
+.reservation-status.cancelled{
+    background:#fee2e2;
+    color:#dc2626;
+}
+
+.reservation-status.completed{
+    background:#dcfce7;
+    color:#15803d;
+}
+
+.checkout-btn{
+    border:none;
+    background:#2563eb;
+    color:white;
+    padding:8px 12px;
+    border-radius:8px;
+    cursor:pointer;
+    margin-right:8px;
+}
+
+.cancel-reservation-btn{
+    border:none;
+    background:#dc2626;
+    color:white;
+    padding:8px 12px;
+    border-radius:8px;
+    cursor:pointer;
+}

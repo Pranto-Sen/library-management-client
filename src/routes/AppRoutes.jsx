@@ -6,6 +6,7 @@ import DashboardPage from "../pages/dashboard/DashboardPage";
 import BooksPage from "./../pages/books/BooksPage";
 import MembersPage from "../pages/members/MembersPage";
 import BorrowPage from "../pages/borrow/BorrowPage";
+import ReservationsPage from "../pages/reservations/ReservationsPage";
 
 export default function AppRoutes() {
   return (
@@ -50,6 +51,17 @@ export default function AppRoutes() {
           <ProtectedRoute roles={["Admin"]}>
             <Layout>
               <BorrowPage />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/reservations"
+        element={
+          <ProtectedRoute roles={["Admin"]}>
+            <Layout>
+              <ReservationsPage />
             </Layout>
           </ProtectedRoute>
         }
