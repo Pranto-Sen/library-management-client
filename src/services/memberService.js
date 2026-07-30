@@ -31,3 +31,9 @@ export async function deleteMember(id) {
 
   return response.data;
 }
+
+export async function getMemberId(userId) {
+  const response = await api.get(`/members/user/${userId}`);
+
+  return response.data.data.memberId;
+}

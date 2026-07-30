@@ -8,6 +8,8 @@ import MembersPage from "../pages/members/MembersPage";
 import BorrowPage from "../pages/borrow/BorrowPage";
 import ReservationsPage from "../pages/reservations/ReservationsPage";
 import BranchesPage from "../pages/branches/BranchesPage";
+import MyBooksPage from "../pages/borrow/MyBooksPage";
+import MyReservationsPage from "../pages/reservations/MyReservationsPage";
 
 export default function AppRoutes() {
   return (
@@ -46,7 +48,7 @@ export default function AppRoutes() {
         }
       />
 
-       <Route
+      <Route
         path="/borrow"
         element={
           <ProtectedRoute roles={["Admin"]}>
@@ -68,16 +70,35 @@ export default function AppRoutes() {
         }
       />
       <Route
-  path="/branches"
-  element={
-    <ProtectedRoute roles={["Admin"]}>
-      <Layout>
-        <BranchesPage />
-      </Layout>
-    </ProtectedRoute>
-  }
-/>
-
+        path="/branches"
+        element={
+          <ProtectedRoute roles={["Admin"]}>
+            <Layout>
+              <BranchesPage />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/my-books"
+        element={
+          <ProtectedRoute roles={["Member"]}>
+            <Layout>
+              <MyBooksPage />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/my-reservations"
+        element={
+          <ProtectedRoute roles={["Member"]}>
+            <Layout>
+              <MyReservationsPage />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   );
 }

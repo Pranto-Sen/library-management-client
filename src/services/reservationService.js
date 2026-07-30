@@ -53,3 +53,11 @@ export async function getMemberReservations(memberId){
 
     return response.data;
 }
+
+export async function getReservationsbyId(memberId) {
+  const response = await api.get(
+    `/reservations/member/${memberId}`
+  );
+
+  return response.data;
+}

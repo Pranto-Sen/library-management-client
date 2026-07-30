@@ -42,3 +42,11 @@ export async function payFine(borrowRecordId) {
 
   return response.data;
 }
+
+export async function getBorrowHistory(memberId) {
+  const response = await api.get(
+    `/borrow-records/member/${memberId}`
+  );
+
+  return response.data;
+}
