@@ -33,3 +33,16 @@ export async function refreshToken() {
     return response.data.data;
 
 }
+
+export async function register(data) {
+
+    const response = await api.post(
+
+        "/users",
+
+        data
+
+    );
+
+    return response.data;
+}

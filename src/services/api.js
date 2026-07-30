@@ -3,7 +3,7 @@ import { storage } from "../utils/storage";
 import { refreshToken } from "./authService";
 
 const api = axios.create({
-    baseURL: "https://localhost:7058/api"
+  baseURL: "https://localhost:7058/api",
 });
 
 // api.interceptors.request.use(config => {
@@ -17,95 +17,69 @@ const api = axios.create({
 //     return config;
 // });
 
-api.interceptors.request.use(
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
 
-    config => {
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
 
-        const token = localStorage.getItem("token");
-
-        if (token) {
-
-            config.headers.Authorization =
-
-                `Bearer ${token}`;
-
-        }
-
-        return config;
-
-    }
-
-);
+  return config;
+});
 
 api.interceptors.response.use(
+  (response) => response,
 
-    response => response,
+  async (error) => {
+    const originalRequest = error.config;
+     if (
+      originalRequest.url.includes("/auth/login") ||
+      originalRequest.url.includes("/auth/refresh")
+    ) {
+      return Promise.reject(error);
+    }
 
-    async error => {
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
 
-        const originalRequest = error.config;
+      try {
+        // const tokens = await refreshToken();
+        const refreshTokenValue = localStorage.getItem("refreshToken");
 
-        if (
+        const response = await axios.post(
+          "https://localhost:7058/api/auth/refresh",
+          {
+            refreshToken: refreshTokenValue,
+          },
+        );
 
-            error.response?.status === 401 &&
+        const tokens = response.data;
 
-            !originalRequest._retry
+        localStorage.setItem(
+          "token",
 
-        ) {
+          tokens.accessToken,
+        );
 
-            originalRequest._retry = true;
+        localStorage.setItem(
+          "refreshToken",
 
-            try {
+          tokens.refreshToken,
+        );
 
-                // const tokens = await refreshToken();
-                const refreshTokenValue = localStorage.getItem("refreshToken");
+        originalRequest.headers.Authorization = `Bearer ${tokens.accessToken}`;
 
-const response = await axios.post(
-  "https://localhost:7058/api/auth/refresh",
-  {
-    refreshToken: refreshTokenValue,
-  }
+        return api(originalRequest);
+      } catch {
+        localStorage.clear();
+
+        window.location.href = "/login";
+      }
+    }
+
+    return Promise.reject(error);
+  },
 );
-
-const tokens = response.data;
-
-                localStorage.setItem(
-
-                    "token",
-
-                    tokens.accessToken
-
-                );
-
-                localStorage.setItem(
-
-                    "refreshToken",
-
-                    tokens.refreshToken
-
-                );
-
-                originalRequest.headers.Authorization =
-
-                    `Bearer ${tokens.accessToken}`;
-
-                return api(originalRequest);
-
-            }
-
-            catch {
-
-                localStorage.clear();
-
-                window.location.href = "/login";
-
-            }
-
-        }
-
-        return Promise.reject(error);
-
-    });
 
 // api.interceptors.response.use(
 

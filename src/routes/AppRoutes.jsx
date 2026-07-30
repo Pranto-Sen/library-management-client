@@ -10,6 +10,7 @@ import ReservationsPage from "../pages/reservations/ReservationsPage";
 import BranchesPage from "../pages/branches/BranchesPage";
 import MyBooksPage from "../pages/borrow/MyBooksPage";
 import MyReservationsPage from "../pages/reservations/MyReservationsPage";
+import RegisterPage from "../pages/auth/RegisterPage";
 
 export default function AppRoutes() {
   return (
@@ -99,6 +100,13 @@ export default function AppRoutes() {
           </ProtectedRoute>
         }
       />
+      <Route
+
+path="/register"
+
+element={<RegisterPage/>}
+
+/>
     </Routes>
   );
 }

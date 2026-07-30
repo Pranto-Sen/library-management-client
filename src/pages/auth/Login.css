@@ -63,3 +63,23 @@
     font-size:13px;
     margin-top:5px;
 }
+
+.register-link{
+
+margin-top:20px;
+
+text-align:center;
+
+}
+
+.register-link a{
+
+margin-left:5px;
+
+color:#2563eb;
+
+font-weight:600;
+
+text-decoration:none;
+
+}

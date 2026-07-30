@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { login as loginApi } from "../../services/authService";
 import { useAuth } from "../../context/AuthContext";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -72,6 +73,17 @@ export default function LoginPage() {
             Login
           </button>
         </form>
+        <div className="register-link">
+
+    Don't have an account?
+
+    <Link to="/register">
+
+        Register
+
+    </Link>
+
+</div>
       </div>
     </div>
   );
