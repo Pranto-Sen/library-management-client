@@ -28,7 +28,7 @@ export default function AppRoutes() {
       <Route
         path="/books"
         element={
-          <ProtectedRoute roles={["Admin"]}>
+          <ProtectedRoute roles={["Admin", "Member"]}>
             <Layout>
               <BooksPage />
             </Layout>

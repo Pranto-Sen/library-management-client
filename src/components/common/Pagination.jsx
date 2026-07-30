@@ -1,51 +1,33 @@
 import "./Pagination.css";
 
 export default function Pagination({
+  page,
+  totalPages,
+  setPage,
+}) {
+  if (totalPages <= 1) return null;
 
-    page,
+  return (
+    <div className="pagination">
 
-    totalPages,
+      <button
+        disabled={page === 1}
+        onClick={() => setPage(page - 1)}
+      >
+        Previous
+      </button>
 
-    setPage
+      <span>
+        Page {page} of {totalPages}
+      </span>
 
-}){
+      <button
+        disabled={page === totalPages}
+        onClick={() => setPage(page + 1)}
+      >
+        Next
+      </button>
 
-    return(
-
-        <div className="pagination">
-
-            <button
-
-                disabled={page===1}
-
-                onClick={()=>setPage(page-1)}
-
-            >
-
-                Previous
-
-            </button>
-
-            <span>
-
-                {page} / {totalPages}
-
-            </span>
-
-            <button
-
-                disabled={page===totalPages}
-
-                onClick={()=>setPage(page+1)}
-
-            >
-
-                Next
-
-            </button>
-
-        </div>
-
-    );
-
+    </div>
+  );
 }

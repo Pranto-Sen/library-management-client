@@ -1,6 +1,6 @@
 import "../../pages/books/Books.css";
 
-export default function BookToolbar({ search, setSearch, onAdd }) {
+export default function BookToolbar({ search, setSearch, onAdd,showAdd }) {
   return (
     <div className="toolbar">
       <input
@@ -9,8 +9,20 @@ export default function BookToolbar({ search, setSearch, onAdd }) {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
+      {showAdd && (
 
-      <button onClick={onAdd}>Add Book</button>
+<button
+className="primary-btn"
+onClick={onAdd}
+>
+
+Add Book
+
+</button>
+
+)}
+
+      {/* <button onClick={onAdd}>Add Book</button> */}
     </div>
   );
 }

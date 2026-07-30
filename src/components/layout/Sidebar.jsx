@@ -59,6 +59,11 @@ export default function Sidebar() {
       path: "/",
       icon: <FaChartPie />,
     },
+     {
+      name: "Books",
+      path: "/books",
+      icon: <FaBook />,
+    },
     {
       name: "My Books",
       path: "/my-books",

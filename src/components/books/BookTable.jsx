@@ -6,6 +6,8 @@ export default function BookTable({
   onEdit,
 
   onDelete,
+  isMember,
+  isAdmin
 }) {
   return (
     <div className="table-card">
@@ -25,7 +27,7 @@ export default function BookTable({
 
             <th>Branch</th>
 
-            <th>Action</th>
+            {isAdmin && <th>Action</th>}
           </tr>
         </thead>
 
@@ -49,8 +51,7 @@ export default function BookTable({
                 <td>{book.status}</td>
 
                 <td>{book.branchName}</td>
-
-                <td>
+{isAdmin && (<td>
                   {/* <button className="edit-btn" onClick={() => onEdit(book)}>
                     Edit
                   </button>
@@ -69,7 +70,8 @@ export default function BookTable({
                       🗑️
                     </button>
                   </td>
-                </td>
+                </td>)}
+                
               </tr>
             ))
           )}
