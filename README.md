@@ -1,16 +1,97 @@
-# React + Vite
+# 🎨 Library-Management-Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Technologies Used
 
-Currently, two official plugins are available:
+- React.js
+- React Router
+- Axios
+- Context API
+- React Hook Form
+- React Toastify
+- CSS
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+# 🚀 Setup Instructions
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 1. Clone the Repository
 
-## Expanding the ESLint configuration
+```bash
+https://github.com/Pranto-Sen/library-management-client.git
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Navigate to the frontend project.
+
+```bash
+cd library-management-client
+```
+
+---
+
+## 2. Install Dependencies
+
+```bash
+npm install
+```
+
+---
+
+## 3. Environment Configuration
+
+Create a `.env` file in the frontend root directory.
+
+### Local Development
+
+```env
+VITE_API_URL=https://localhost:7058/api
+```
+
+### Docker Environment
+
+```env
+VITE_API_URL=http://localhost:7058/api
+```
+
+> **Note:** Use the Docker URL only when running the application with Docker Compose.
+
+---
+
+## 4. Run the Frontend
+
+Start the development server.
+
+```bash
+npm run dev
+```
+
+The application will be available at:
+
+```
+http://localhost:5173
+```
+
+
+
+
+---
+
+
+# Frontend Features
+
+- JWT Authentication
+- Refresh Token Authentication
+- Protected Routes
+- Admin Dashboard
+- Member Dashboard
+- Book Management
+- Member Management
+- Branch Management
+- Borrow Records
+- Reservations
+- Search & Pagination
+- Toast Notifications
+- Responsive UI
+- Axios Interceptors for Automatic Token Refresh
+
+---
+
